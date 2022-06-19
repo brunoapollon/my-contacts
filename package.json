@@ -1,0 +1,20 @@
+{
+  "name": "my-contacts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/brunoapollon/my-contacts.git",
+  "author": "Bruno Lopes <eusoubruno7@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.18.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "nodemon": "^2.0.16"
+  }
+}
