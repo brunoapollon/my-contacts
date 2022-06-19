@@ -15,5 +15,6 @@ module.exports = {
     'no-unused-vars': 'warn',
     'consistent-return': 'off',
     'prefer-const': 'off',
+    camelcase: 'off',
   },
 };
