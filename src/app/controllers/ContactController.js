@@ -24,6 +24,10 @@ class ContactController {
       name, email, phone, category_id,
     } = request.body;
 
+    if (!name) {
+      return response.status(400).json({ error: 'name is required!' });
+    }
+
     const contactExists = await ContactsRepository.findByEmail(email);
 
     if (contactExists) {
