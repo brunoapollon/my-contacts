@@ -12,9 +12,9 @@ module.exports = {
   },
   rules: {
     'class-methods-use-this': 'off',
-    'no-unused-vars': 'warn',
     'consistent-return': 'off',
     'prefer-const': 'off',
     camelcase: 'off',
+    'no-unused-vars': ['warn', { argsIgnorePattern: 'next' }],
   },
 };
