@@ -65,14 +65,14 @@ class ContactController {
       return response.status(404).json({ error: 'Contact not fount!' });
     }
 
+    if (!name) {
+      return response.status(400).json({ error: 'name is required!' });
+    }
+
     const contactExists = await ContactsRepository.findById(id);
 
     if (!contactExists) {
       return response.status(404).json({ error: 'Contact not fount!' });
-    }
-
-    if (!name) {
-      return response.status(400).json({ error: 'name is required!' });
     }
 
     const contactByEmail = await ContactsRepository.findByEmail(email);
@@ -82,7 +82,10 @@ class ContactController {
     }
 
     const contact = await ContactsRepository.update(id, {
-      name, email, phone, category_id,
+      name,
+      email,
+      phone,
+      category_id: category_id || null,
     });
 
     response.json(contact);
