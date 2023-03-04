@@ -31,6 +31,10 @@ class ContactController {
       name, email, phone, category_id,
     } = request.body;
 
+    if (category_id && !isValidUUID(category_id)) {
+      return response.status(404).json({ error: 'Category not fount!' });
+    }
+
     if (!name) {
       return response.status(400).json({ error: 'name is required!' });
     }
@@ -42,7 +46,10 @@ class ContactController {
     }
 
     const contact = await ContactsRepository.create({
-      name, email, phone, category_id,
+      name,
+      email,
+      phone,
+      category_id: category_id || null,
     });
 
     response.status(201).json(contact);
