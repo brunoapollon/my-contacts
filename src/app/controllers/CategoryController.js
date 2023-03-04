@@ -1,4 +1,5 @@
 const CategoriesRepository = require('../repositories/CategoriesRepository');
+const isValidUUID = require('../utils/isValidUUID');
 
 class CategoryController {
   async index(request, response) {
@@ -22,6 +23,10 @@ class CategoryController {
   async show(request, response) {
     const { id } = request.params;
 
+    if (!isValidUUID(id)) {
+      return response.status(404).json({ error: 'Category not fount!' });
+    }
+
     const category = await CategoriesRepository.findById(id);
 
     if (!category) {
@@ -34,6 +39,10 @@ class CategoryController {
   async delete(request, response) {
     const { id } = request.params;
 
+    if (!isValidUUID(id)) {
+      return response.status(404).json({ error: 'Category not fount!' });
+    }
+
     await CategoriesRepository.delete(id);
 
     response.sendStatus(204);
@@ -42,6 +51,10 @@ class CategoryController {
   async update(request, response) {
     const { id } = request.params;
     const { name } = request.body;
+
+    if (!isValidUUID(id)) {
+      return response.status(404).json({ error: 'Category not fount!' });
+    }
 
     const categoryExists = await CategoriesRepository.findById(id);
 

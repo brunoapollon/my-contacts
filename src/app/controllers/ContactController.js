@@ -1,4 +1,5 @@
 const ContactsRepository = require('../repositories/ContactsRepository');
+const isValidUUID = require('../utils/isValidUUID');
 
 class ContactController {
   async index(request, response) {
@@ -11,6 +12,10 @@ class ContactController {
 
   async show(request, response) {
     const { id } = request.params;
+
+    if (!isValidUUID(id)) {
+      return response.status(404).json({ error: 'Id is not valid!' });
+    }
 
     const contact = await ContactsRepository.findById(id);
 
@@ -49,6 +54,10 @@ class ContactController {
       name, email, phone, category_id,
     } = request.body;
 
+    if (!isValidUUID(id)) {
+      return response.status(404).json({ error: 'Contact not fount!' });
+    }
+
     const contactExists = await ContactsRepository.findById(id);
 
     if (!contactExists) {
@@ -75,9 +84,12 @@ class ContactController {
   async delete(request, response) {
     const { id } = request.params;
 
+    if (!isValidUUID(id)) {
+      return response.status(404).json({ error: 'Contact not fount!' });
+    }
+
     await ContactsRepository.delete(id);
 
-    // 204: success without content
     response.sendStatus(204);
   }
 }
